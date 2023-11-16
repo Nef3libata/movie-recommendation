@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, Typography } from '@mui/material';
 
 
 const buttonBaseStyle = {
@@ -42,6 +42,14 @@ const theme = createTheme({
                     }
                 }
             ]
+        },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    width: '340px',
+                    marginBottom: '32px'
+                }
+            }
         }
 
     }
@@ -63,63 +71,73 @@ export default function SignUpForm() {
     return (
         <Box
             component="form"
-            sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
-            }}
             noValidate
             autoComplete="off"
             onSubmit={formik.handleSubmit}
+            sx={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'space-between' }}
         >
-            <Grid container direction="column" alignItems="center">
+            <Grid container direction="column" alignItems="center" >
+                <ThemeProvider theme={theme}>
+                    <Typography sx={{ mt: '16px', mb: '24px', fontWeight: 'bold' }}>sign up</Typography>
 
-                <TextField
-                    id="outlined-number"
-                    label="Phone Number"
-                    type="number"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={formik.handleChange}
-                    value={formik.values.phoneNumber}
-                />
+                    <TextField
+                        id="outlined-number"
+                        label="Phone Number"
+                        type="number"
+                        onChange={formik.handleChange}
+                        value={formik.values.phoneNumber}
+                        InputLabelProps={{
+                            style: { color: '#454545', fontWeight: 'bold' },
+                        }}
+                    />
 
-                <TextField
-                    required
-                    id="email"
-                    label="Email"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                />
+                    <TextField
+                        id="email"
+                        label="Email"
+                        onChange={formik.handleChange}
+                        value={formik.values.email}
+                        InputLabelProps={{
+                            style: { color: '#454545', fontWeight: 'bold' },
+                        }}
+                    />
 
-                <TextField
-                    id="outlined-password-input"
-                    label="Password"
-                    type="password"
-                    autoComplete="current-password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                />
+                    <TextField
+                        id="outlined-password-input"
+                        label="Password"
+                        type="password"
+                        autoComplete="current-password"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                        InputLabelProps={{
+                            style: { color: '#454545', fontWeight: 'bold' },
+                        }}
+                    />
 
-                <TextField
-                    id="outlined-repeat-password-input"
-                    label="Repeat Password"
-                    type="password"
-                    autoComplete="current-password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                />
+                    <TextField
+                        id="outlined-repeat-password-input"
+                        label="Repeat Password"
+                        type="password"
+                        autoComplete="current-password"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                        InputLabelProps={{
+                            style: { color: '#454545', fontWeight: 'bold' },
+                        }}
+                    />
 
+                </ThemeProvider>
+
+
+
+            </Grid>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: '34px' }}>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
                     <Button variant="contained" type="submit" color='primary' sx={{ mb: 2 }}>sign up</Button>
                     <Button variant="outlined" type="submit" color='secondary'>login</Button>
                 </ThemeProvider>
+            </Box>
 
-
-
-
-            </Grid>
-
-        </Box>
+        </Box >
     );
 }
