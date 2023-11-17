@@ -7,6 +7,13 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { CssBaseline, Typography } from '@mui/material';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
 
 const buttonBaseStyle = {
@@ -57,6 +64,15 @@ const theme = createTheme({
 
 export default function SignUpForm() {
 
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
+
+
     const formik = useFormik({
         initialValues: {
             phoneNumber: '',
@@ -83,7 +99,7 @@ export default function SignUpForm() {
                     <TextField
                         id="outlined-number"
                         label="Phone Number"
-                        type="number"
+                        type="tel"
                         onChange={formik.handleChange}
                         value={formik.values.phoneNumber}
                         InputLabelProps={{
@@ -94,6 +110,7 @@ export default function SignUpForm() {
                     <TextField
                         id="email"
                         label="Email"
+                        type='email'
                         onChange={formik.handleChange}
                         value={formik.values.email}
                         InputLabelProps={{
@@ -101,17 +118,27 @@ export default function SignUpForm() {
                         }}
                     />
 
-                    <TextField
-                        id="outlined-password-input"
-                        label="Password"
-                        type="password"
-                        autoComplete="current-password"
-                        onChange={formik.handleChange}
-                        value={formik.values.password}
-                        InputLabelProps={{
-                            style: { color: '#454545', fontWeight: 'bold' },
-                        }}
-                    />
+                    <FormControl sx={{ mb: '32px', width: '340px' }} variant="outlined">
+                        <InputLabel sx={{ color: '#454545', fontWeight: 'bold' }} htmlFor="outlined-adornment-password">Password</InputLabel>
+                        <OutlinedInput
+                            id="outlined-adornment-password"
+                            type={showPassword ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                        sx={{ color: '#454545' }}
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                            label="Password"
+                        />
+                    </FormControl>
 
                     <TextField
                         id="outlined-repeat-password-input"
