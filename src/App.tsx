@@ -1,4 +1,5 @@
 import FormPropsTextFields from './Components/SignUp'
+import Login from './Components/Login'
 
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
   return (
     <>
       <FormPropsTextFields />
+      {/* <Login /> */}
     </>
   )
 }

@@ -8,7 +8,7 @@ import FormButtons from './FormButtons';
 
 
 
-export default function SignUpForm() {
+export default function LoginForm() {
 
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -22,7 +22,6 @@ export default function SignUpForm() {
     const formik = useFormik({
         initialValues: {
             phoneNumber: '',
-            email: '',
             password: '',
         },
         onSubmit: values => {
@@ -40,7 +39,7 @@ export default function SignUpForm() {
         >
             <ThemeProvider theme={theme}>
                 <Grid container direction="column" alignItems="center" >
-                    <Typography>sign up</Typography>
+                    <Typography>login</Typography>
 
                     <TextField
                         id="outlined-number"
@@ -50,32 +49,13 @@ export default function SignUpForm() {
                         value={formik.values.phoneNumber}
                     />
 
-                    <TextField
-                        id="email"
-                        label="Email"
-                        type='email'
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
-                        InputLabelProps={{
-                            style: { color: '#454545', fontWeight: 'bold' },
-                        }}
-                    />
-
                     <PasswordField showPassword={showPassword} handleClickShowPassword={handleClickShowPassword} handleMouseDownPassword={handleMouseDownPassword} />
 
-                    <TextField
-                        id="outlined-repeat-password-input"
-                        label="Repeat Password"
-                        type="password"
-                        autoComplete="current-password"
-                        onChange={formik.handleChange}
-                        value={formik.values.password}
-                    />
 
                 </Grid>
                 <FormButtons />
             </ThemeProvider>
-        </Box >
 
+        </Box >
     );
 }
