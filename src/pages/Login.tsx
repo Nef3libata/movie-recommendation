@@ -1,10 +1,10 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { theme } from '/src/theme'
-import { PasswordField } from './PasswordField';
+import { PasswordField } from '../components/PasswordField';
 
 import { Box, Grid, ThemeProvider, Typography, TextField } from '@mui/material';
-import FormButtons from './FormButtons';
+import FormButtons from '../components/FormButtons';
 
 
 

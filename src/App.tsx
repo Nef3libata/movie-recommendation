@@ -1,5 +1,5 @@
-import FormPropsTextFields from './Components/SignUp'
-import Login from './Components/Login'
+import FormPropsTextFields from './pages/SignUp'
+import Login from './pages/Login'
 
 
 function App() {
