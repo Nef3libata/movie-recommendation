@@ -1,7 +1,8 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { theme } from '/src/core/materialconfig/theme.tsx'
-import { PasswordField } from '../components/PasswordField';
+import { PasswordField } from '../core/SharedComponents/PasswordField';
+import * as Yup from 'yup';
 
 import { Box, Grid, ThemeProvider, Typography, TextField, Button, CssBaseline } from '@mui/material';
 import { registerUser } from '../core/api/Authentication';
@@ -25,6 +26,18 @@ export default function SignUpForm() {
             password: '',
             repeatPassword: '',
         },
+        validationSchema: Yup.object({
+            phoneNumber: Yup.number()
+                .typeError('Phone number must be a number')
+                .required('Required'),
+            email: Yup.string()
+                .email('Invalid email address')
+                .required('Required'),
+            password: Yup.string().required('Required'),
+            repeatPassword: Yup.string()
+                .oneOf([Yup.ref('password')], 'Password must match')
+                .required('Required')
+        }),
         onSubmit: values => {
             registerUser(values)
         },
@@ -50,6 +63,9 @@ export default function SignUpForm() {
                         name='phoneNumber'
                         onChange={formik.handleChange}
                         value={formik.values.phoneNumber}
+                        error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+                        helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
+
                     />
 
                     <TextField
@@ -59,6 +75,8 @@ export default function SignUpForm() {
                         name='email'
                         onChange={formik.handleChange}
                         value={formik.values.email}
+                        error={formik.touched.email && Boolean(formik.errors.email)}
+                        helperText={formik.touched.email && formik.errors.email}
                     />
 
                     <PasswordField
@@ -77,6 +95,8 @@ export default function SignUpForm() {
                         autoComplete="current-password"
                         onChange={formik.handleChange}
                         value={formik.values.repeatPassword}
+                        error={formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)}
+                        helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
                     />
 
                 </Grid>
