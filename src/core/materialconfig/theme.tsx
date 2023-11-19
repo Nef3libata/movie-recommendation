@@ -43,16 +43,6 @@ export const theme = createTheme({
                 }
             }
         },
-        MuiBox: {
-            styleOverrides: {
-                root: {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '100vh',
-                    justifyContent: 'space-between'
-                }
-            }
-        },
         MuiTypography: {
             styleOverrides: {
                 root: {
