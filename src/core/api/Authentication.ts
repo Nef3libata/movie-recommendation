@@ -1,13 +1,17 @@
 import axios from "axios";
 
+interface UserValues {
+  phoneNumber: string;
+  email: string;
+  password: string;
+}
 
-export const registerUser = async () => {
+export const registerUser = async (values: UserValues) => {
   axios
     .post("http://localhost:3000/users", {
-      id: 9,
-      first_name: "sem",
-      last_name: "mina",
-      email: "bm@gmail.com",
+      phoneNumber: values.phoneNumber,
+      email: values.email,
+      password: values.password,
     })
     .then((resp) => {
       console.log(resp.data);

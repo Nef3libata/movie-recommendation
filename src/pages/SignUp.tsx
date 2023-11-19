@@ -4,6 +4,7 @@ import { theme } from '/src/core/materialconfig/theme.tsx'
 import { PasswordField } from '../components/PasswordField';
 
 import { Box, Grid, ThemeProvider, Typography, TextField, Button, CssBaseline } from '@mui/material';
+import { registerUser } from '../core/api/Authentication';
 
 
 
@@ -25,7 +26,7 @@ export default function SignUpForm() {
             repeatPassword: '',
         },
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            registerUser(values)
         },
     })
 
@@ -60,7 +61,13 @@ export default function SignUpForm() {
                         value={formik.values.email}
                     />
 
-                    <PasswordField showPassword={showPassword} handleClickShowPassword={handleClickShowPassword} handleMouseDownPassword={handleMouseDownPassword} />
+                    <PasswordField
+                        showPassword={showPassword}
+                        handleClickShowPassword={handleClickShowPassword}
+                        handleMouseDownPassword={handleMouseDownPassword}
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                    />
 
                     <TextField
                         id="outlined-repeat-password-input"
