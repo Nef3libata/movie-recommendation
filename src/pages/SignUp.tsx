@@ -3,8 +3,7 @@ import { useFormik } from 'formik';
 import { theme } from '/src/core/materialconfig/theme.tsx'
 import { PasswordField } from '../components/PasswordField';
 
-import { Box, Grid, ThemeProvider, Typography, TextField } from '@mui/material';
-import FormButtons from '../components/FormButtons';
+import { Box, Grid, ThemeProvider, Typography, TextField, Button, CssBaseline } from '@mui/material';
 
 
 
@@ -18,12 +17,12 @@ export default function SignUpForm() {
         event.preventDefault();
     };
 
-
     const formik = useFormik({
         initialValues: {
             phoneNumber: '',
             email: '',
             password: '',
+            repeatPassword: '',
         },
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
@@ -31,14 +30,15 @@ export default function SignUpForm() {
     })
 
     return (
-        <Box
-            component="form"
-            noValidate
-            autoComplete="off"
-            onSubmit={formik.handleSubmit}
-            sx={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'space-between' }}
-        >
-            <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+            <Box
+                component="form"
+                noValidate
+                autoComplete="off"
+                onSubmit={formik.handleSubmit}
+                sx={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'space-between' }}
+            >
+                <CssBaseline />
                 <Grid container direction="column" alignItems="center" >
                     <Typography>sign up</Typography>
 
@@ -46,6 +46,7 @@ export default function SignUpForm() {
                         id="outlined-number"
                         label="Phone Number"
                         type="tel"
+                        name='phoneNumber'
                         onChange={formik.handleChange}
                         value={formik.values.phoneNumber}
                     />
@@ -54,11 +55,9 @@ export default function SignUpForm() {
                         id="email"
                         label="Email"
                         type='email'
+                        name='email'
                         onChange={formik.handleChange}
                         value={formik.values.email}
-                        InputLabelProps={{
-                            style: { color: '#454545', fontWeight: 'bold' },
-                        }}
                     />
 
                     <PasswordField showPassword={showPassword} handleClickShowPassword={handleClickShowPassword} handleMouseDownPassword={handleMouseDownPassword} />
@@ -67,15 +66,21 @@ export default function SignUpForm() {
                         id="outlined-repeat-password-input"
                         label="Repeat Password"
                         type="password"
+                        name='repeatPassword'
                         autoComplete="current-password"
                         onChange={formik.handleChange}
-                        value={formik.values.password}
+                        value={formik.values.repeatPassword}
                     />
 
                 </Grid>
-                <FormButtons />
-            </ThemeProvider>
-        </Box >
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+                    <Button variant="contained" type="submit" color='primary' sx={{ mb: 2 }}>sign up</Button>
+                    <Button variant="outlined" type="submit" color='secondary' sx={{ mb: 2 }}>login</Button>
+
+                </Box>
+            </Box >
+        </ThemeProvider>
 
     );
 }
