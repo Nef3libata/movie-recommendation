@@ -4,20 +4,25 @@ import { theme } from '/src/core/materialconfig/theme.tsx'
 import { PasswordField } from '../core/SharedComponents/PasswordField';
 import * as Yup from 'yup';
 
-import { Box, Grid, ThemeProvider, Typography, TextField, Button, CssBaseline } from '@mui/material';
+import { Box, Grid, ThemeProvider, Typography, TextField, Button, CssBaseline, Snackbar } from '@mui/material';
 import { registerUser } from '../core/api/Authentication';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
 export default function SignUpForm() {
 
     const [showPassword, setShowPassword] = React.useState(false);
+    const [isSnackbarOpen, setIsSnackbarOpen] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
+
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
@@ -40,6 +45,11 @@ export default function SignUpForm() {
         }),
         onSubmit: values => {
             registerUser(values)
+                .then(() => {
+                    navigate('/login');
+                    setIsSnackbarOpen(true)
+                }).catch((error) =>
+                    console.log(error))
         },
     })
 
@@ -99,11 +109,13 @@ export default function SignUpForm() {
                         helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
                     />
 
+                    <Snackbar open={isSnackbarOpen} autoHideDuration={6000} onClose={() => setIsSnackbarOpen(false)} message="Sign up was successful" />
+
                 </Grid>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
                     <Button variant="contained" type="submit" color='primary' sx={{ mb: 2 }}>sign up</Button>
-                    <Button variant="outlined" type="submit" color='secondary' sx={{ mb: 2 }}>login</Button>
+                    <Button variant="outlined" type="submit" color='secondary' sx={{ mb: 2 }} onClick={() => navigate('/login')}>login</Button>
 
                 </Box>
             </Box >
