@@ -8,7 +8,7 @@ interface UserValues {
 
 export const registerUser = async (values: UserValues) => {
   axios
-    .post("http://localhost:3000/users", {
+    .post("http://localhost:3000/register", {
       phoneNumber: values.phoneNumber,
       email: values.email,
       password: values.password,
