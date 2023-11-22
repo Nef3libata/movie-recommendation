@@ -29,6 +29,21 @@ export default function LoginForm() {
 
     const navigate = useNavigate();
 
+    const handleLogin = (values: LoginValuesPayload) => {
+        setIsLoading(true)
+        loginUser(values)
+            .then(() => {
+                dispatch(openSnackbar('Logged in successfuly!', 'success'))
+                navigate('/profile')
+            })
+            .catch((error) => {
+                dispatch(openSnackbar(error.response.data, 'error'))
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+    }
+
     const formik = useFormik<LoginValuesPayload>({
         initialValues: {
             email: '',
@@ -39,20 +54,7 @@ export default function LoginForm() {
                 .email('Invalid email address')
                 .required("Required")
         }),
-        onSubmit: values => {
-            setIsLoading(true)
-            loginUser(values)
-                .then(() => {
-                    dispatch(openSnackbar('Logged in successfuly!', 'success'))
-                    navigate('/profile')
-                })
-                .catch((error) => {
-                    dispatch(openSnackbar(error.response.data, 'error'))
-                })
-                .finally(() => {
-                    setIsLoading(false)
-                })
-        },
+        onSubmit: handleLogin,
     })
 
     return (

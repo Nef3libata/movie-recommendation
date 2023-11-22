@@ -27,6 +27,35 @@ export default function SignUpForm() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const handleSignUp = (values: UserValuesFormikModel) => {
+        setIsLoading(true)
+        registerUser(values)
+            .then(() => {
+                navigate('/');
+                dispatch(openSnackbar('Signed up successfuly!', 'success'))
+            })
+            .catch((error) => {
+                dispatch(openSnackbar(error.response.data, 'error'))
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+
+    }
+
+    const validationSchema = Yup.object({
+        phoneNumber: Yup.number()
+            .typeError('Phone number must be a number')
+            .required('Required'),
+        email: Yup.string()
+            .email('Invalid email address')
+            .required('Required'),
+        password: Yup.string().required('Required'),
+        repeatPassword: Yup.string()
+            .oneOf([Yup.ref('password')], 'Password must match')
+            .required('Required')
+    })
+
     const formik = useFormik<UserValuesFormikModel>({
         initialValues: {
             phoneNumber: '',
@@ -34,32 +63,8 @@ export default function SignUpForm() {
             password: '',
             repeatPassword: '',
         },
-        validationSchema: Yup.object({
-            phoneNumber: Yup.number()
-                .typeError('Phone number must be a number')
-                .required('Required'),
-            email: Yup.string()
-                .email('Invalid email address')
-                .required('Required'),
-            password: Yup.string().required('Required'),
-            repeatPassword: Yup.string()
-                .oneOf([Yup.ref('password')], 'Password must match')
-                .required('Required')
-        }),
-        onSubmit: values => {
-            setIsLoading(true)
-            registerUser(values)
-                .then(() => {
-                    navigate('/');
-                    dispatch(openSnackbar('Signed up successfuly!', 'success'))
-                })
-                .catch((error) => {
-                    dispatch(openSnackbar(error.response.data, 'error'))
-                })
-                .finally(() => {
-                    setIsLoading(false)
-                })
-        },
+        validationSchema,
+        onSubmit: handleSignUp,
     })
 
     return (
