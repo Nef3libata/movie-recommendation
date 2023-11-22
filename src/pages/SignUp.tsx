@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { theme } from '../core/materialconfig/theme'
 import { PasswordField } from '../core/SharedComponents/PasswordField';
 import * as Yup from 'yup';
 import { UserValuesFormikModel } from '@/core/models/api/register.model';
 import { PatternFormat } from 'react-number-format';
-import { Box, Grid, ThemeProvider, Typography, TextField, Button, CssBaseline } from '@mui/material';
+import { Box, Grid, ThemeProvider, Typography, TextField, Button, CssBaseline, CircularProgress } from '@mui/material';
 import { registerUser } from '../core/api/Authentication';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -16,6 +16,7 @@ import { openSnackbar } from '../state/actionCreators'
 export default function SignUpForm() {
 
     const [showPassword, setShowPassword] = React.useState(false);
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -46,6 +47,7 @@ export default function SignUpForm() {
                 .required('Required')
         }),
         onSubmit: values => {
+            setIsLoading(true)
             registerUser(values)
                 .then(() => {
                     navigate('/');
@@ -53,6 +55,9 @@ export default function SignUpForm() {
                 })
                 .catch((error) => {
                     dispatch(openSnackbar(error.response.data, 'error'))
+                })
+                .finally(() => {
+                    setIsLoading(false)
                 })
         },
     })
@@ -117,7 +122,10 @@ export default function SignUpForm() {
                 </Grid>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-                    <Button variant="contained" type="submit" color='primary' sx={{ mb: 2 }}>sign up</Button>
+                    <Button variant="contained" type="submit" color='primary' sx={{ mb: 2 }}>
+                        {isLoading ? <CircularProgress size={24} /> : 'sign up'}
+
+                    </Button>
                     <Button variant="outlined" type="submit" color='secondary' sx={{ mb: 2 }} onClick={() => navigate('/')}>login</Button>
 
                 </Box>

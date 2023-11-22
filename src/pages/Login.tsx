@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
 import { LoginValuesPayload } from '@/core/models/api/login.model';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
-import { Box, Grid, ThemeProvider, Typography, TextField, Button, CssBaseline } from '@mui/material';
+import { Box, Grid, ThemeProvider, Typography, TextField, Button, CssBaseline, CircularProgress } from '@mui/material';
 import { loginUser } from '../core/api/Authentication';
 import { openSnackbar } from '../state/actionCreators';
 
@@ -16,6 +17,8 @@ import { openSnackbar } from '../state/actionCreators';
 export default function LoginForm() {
 
     const [showPassword, setShowPassword] = React.useState(false);
+    const [isLoading, setIsLoading] = useState(false)
+
     const dispatch = useDispatch();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -37,6 +40,7 @@ export default function LoginForm() {
                 .required("Required")
         }),
         onSubmit: values => {
+            setIsLoading(true)
             loginUser(values)
                 .then(() => {
                     dispatch(openSnackbar('Logged in successfuly!', 'success'))
@@ -45,6 +49,9 @@ export default function LoginForm() {
                 .catch((error) => {
                     dispatch(openSnackbar(error.response.data, 'error'))
                 })
+            .finally(() => {
+                setIsLoading(false)
+            })
         },
     })
 
@@ -83,7 +90,10 @@ export default function LoginForm() {
                 </Grid>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-                    <Button variant="contained" type="submit" color='primary' sx={{ mb: 2 }}>login</Button>
+                    <Button variant="contained" type="submit" color='primary' sx={{ mb: 2 }}>
+                        {isLoading ? <CircularProgress size={24} /> : 'login'}
+                    </Button>
+
                     <Button variant="outlined" type="submit" color='secondary' sx={{ mb: 2 }} onClick={() => navigate('/signup')}>sign up</Button>
 
                 </Box>
