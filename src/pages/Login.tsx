@@ -1,18 +1,22 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { theme } from '/src/core/materialconfig/theme.tsx'
+import { theme } from '../core/materialconfig/theme';
 import { PasswordField } from '../core/SharedComponents/PasswordField';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup'
+import { LoginValuesPayload } from '@/core/models/api/login.model';
+import { useDispatch } from 'react-redux';
 
 import { Box, Grid, ThemeProvider, Typography, TextField, Button, CssBaseline } from '@mui/material';
 import { loginUser } from '../core/api/Authentication';
+import { openSnackbar } from '../state/actionCreators';
 
 
 
 export default function LoginForm() {
 
     const [showPassword, setShowPassword] = React.useState(false);
+    const dispatch = useDispatch();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -22,7 +26,7 @@ export default function LoginForm() {
 
     const navigate = useNavigate();
 
-    const formik = useFormik({
+    const formik = useFormik<LoginValuesPayload>({
         initialValues: {
             email: '',
             password: '',
@@ -34,6 +38,13 @@ export default function LoginForm() {
         }),
         onSubmit: values => {
             loginUser(values)
+                .then(() => {
+                    dispatch(openSnackbar('Logged in successfuly!', 'success'))
+                    navigate('/profile')
+                })
+                .catch((error) => {
+                    dispatch(openSnackbar(error.response.data, 'error'))
+                })
         },
     })
 
@@ -72,8 +83,8 @@ export default function LoginForm() {
                 </Grid>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-                    <Button variant="outlined" type="submit" color='secondary' sx={{ mb: 2 }}>login</Button>
-                    <Button variant="contained" type="submit" color='primary' sx={{ mb: 2 }} onClick={() => navigate('/')}>sign up</Button>
+                    <Button variant="contained" type="submit" color='primary' sx={{ mb: 2 }}>login</Button>
+                    <Button variant="outlined" type="submit" color='secondary' sx={{ mb: 2 }} onClick={() => navigate('/signup')}>sign up</Button>
 
                 </Box>
             </Box >
