@@ -123,7 +123,7 @@ export default function SignUpForm() {
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
                     <Button variant="contained" type="submit" color='primary' sx={{ mb: 2 }}>
-                        {isLoading ? <CircularProgress size={24} /> : 'sign up'}
+                        {isLoading ? <CircularProgress size={24} color='info' thickness={3.6} /> : 'sign up'}
 
                     </Button>
                     <Button variant="outlined" type="submit" color='secondary' sx={{ mb: 2 }} onClick={() => navigate('/')}>login</Button>

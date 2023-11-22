@@ -49,9 +49,9 @@ export default function LoginForm() {
                 .catch((error) => {
                     dispatch(openSnackbar(error.response.data, 'error'))
                 })
-            .finally(() => {
-                setIsLoading(false)
-            })
+                .finally(() => {
+                    setIsLoading(false)
+                })
         },
     })
 
@@ -91,7 +91,7 @@ export default function LoginForm() {
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
                     <Button variant="contained" type="submit" color='primary' sx={{ mb: 2 }}>
-                        {isLoading ? <CircularProgress size={24} /> : 'login'}
+                        {isLoading ? <CircularProgress size={24} color='info' thickness={3.6} /> : 'login'}
                     </Button>
 
                     <Button variant="outlined" type="submit" color='secondary' sx={{ mb: 2 }} onClick={() => navigate('/signup')}>sign up</Button>
