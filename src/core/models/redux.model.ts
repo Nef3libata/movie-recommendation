@@ -5,5 +5,6 @@ export interface RootState {
 export interface SnackbarState {
   isOpen: boolean;
   message: string;
-  severity: string;
+  severity: "error" | "warning" | "success" | "info";
+  handleClose: () => void;
 }
