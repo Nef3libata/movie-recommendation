@@ -2,9 +2,12 @@ import axios from "axios";
 import { UserValuesPayload } from "../models/api/register.model";
 import { LoginValuesPayload } from "../models/api/login.model";
 
+const registerURL = import.meta.env.VITE_APP_API_URL + "/register";
+const loginURL = import.meta.env.VITE_APP_API_URL + "/login";
+
 export const registerUser = async (values: UserValuesPayload) => {
   axios
-    .post("http://localhost:3000/register", {
+    .post(registerURL, {
       phoneNumber: values.phoneNumber,
       email: values.email,
       password: values.password,
@@ -18,9 +21,8 @@ export const registerUser = async (values: UserValuesPayload) => {
 };
 
 export const loginUser = async (values: LoginValuesPayload) => {
-  return axios
-    .post("http://localhost:3000/login", {
-      email: values.email,
-      password: values.password,
-    })
+  return axios.post(loginURL, {
+    email: values.email,
+    password: values.password,
+  });
 };
