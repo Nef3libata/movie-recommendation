@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles'
+import { CSSProperties } from '@mui/material/styles/createTypography';
 
-
-const buttonBaseStyle = {
+const buttonBaseStyle : CSSProperties = {
     width: '340px',
     borderRadius: '100px',
     textTransform: 'none'
@@ -40,16 +40,6 @@ export const theme = createTheme({
                 root: {
                     width: '340px',
                     marginBottom: '32px'
-                }
-            }
-        },
-        MuiBox: {
-            styleOverrides: {
-                root: {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '100vh',
-                    justifyContent: 'space-between'
                 }
             }
         },
