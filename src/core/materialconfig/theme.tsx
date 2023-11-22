@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles'
+import { CSSProperties } from '@mui/material/styles/createTypography';
 
-
-const buttonBaseStyle = {
+const buttonBaseStyle : CSSProperties = {
     width: '340px',
     borderRadius: '100px',
     textTransform: 'none'
