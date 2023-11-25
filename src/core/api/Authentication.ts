@@ -6,18 +6,11 @@ const registerURL = import.meta.env.VITE_APP_API_URL + "/register";
 const loginURL = import.meta.env.VITE_APP_API_URL + "/login";
 
 export const registerUser = async (values: UserValuesPayload) => {
-  axios
-    .post(registerURL, {
-      phoneNumber: values.phoneNumber,
-      email: values.email,
-      password: values.password,
-    })
-    .then((resp) => {
-      console.log(resp.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  return axios.post(registerURL, {
+    phoneNumber: values.phoneNumber,
+    email: values.email,
+    password: values.password,
+  });
 };
 
 export const loginUser = async (values: LoginValuesPayload) => {
