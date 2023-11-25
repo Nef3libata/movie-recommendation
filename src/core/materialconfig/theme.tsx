@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles'
 import { CSSProperties } from '@mui/material/styles/createTypography';
 
-const buttonBaseStyle : CSSProperties = {
+const buttonBaseStyle: CSSProperties = {
     width: '340px',
     borderRadius: '100px',
     textTransform: 'none'
@@ -19,6 +19,7 @@ export const theme = createTheme({
                     style: {
                         ...buttonBaseStyle,
                         backgroundColor: '#D0BCFF',
+                        marginBottom: '16px',
                         color: '#381E72',
                         ':hover': {
                             backgroundColor: '#D0BCFF'
@@ -31,6 +32,7 @@ export const theme = createTheme({
                     style: {
                         ...buttonBaseStyle,
                         color: '#D0BCFF',
+                        marginBottom: '16px',
                     }
                 }
             ]
