@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { PatternFormat } from 'react-number-format';
-import { Grid, Typography, TextField, Button, CircularProgress } from '@mui/material';
+import { Grid, Typography, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { PasswordField } from '../core/SharedComponents/PasswordField';
-import { registerUser } from '../core/api/Authentication';
-import { openSnackbar } from '../state/actionCreators';
-import { validationSchema } from '@/constants/definitions';
-import { UserValuesFormikModel } from '@/core/models/api/register.model';
+import CircularLoading from '@/core/SharedComponents/CircularLoading';
+import { PasswordField } from '../../core/SharedComponents/PasswordField';
+import { registerUser } from '../../core/api/Authentication';
+import { openSnackbar } from '../../state/actionCreators';
+import { signUpValidationSchema } from './definitions';
+import { UserValuesFormikModel } from './register.model';
 import { StyledFormBox, StyledBox } from '@/core/materialconfig/styles';
 
 
@@ -24,7 +25,7 @@ export default function SignUpForm() {
             password: '',
             repeatPassword: '',
         },
-        validationSchema,
+        validationSchema: signUpValidationSchema,
         onSubmit: (values) => handleSignUp(values),
     })
 
@@ -98,7 +99,7 @@ export default function SignUpForm() {
             <StyledBox>
 
                 <Button variant="contained" type="submit" color='primary'>
-                    {isLoading ? <CircularProgress size={24} color='info' thickness={3.6} /> : 'sign up'}
+                    {isLoading ? <CircularLoading /> : 'sign up'}
 
                 </Button>
                 <Button variant="outlined" type="submit" color='secondary' onClick={() => navigate('/')}>login</Button>

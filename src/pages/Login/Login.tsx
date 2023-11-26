@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { Grid, Typography, TextField, Button, CircularProgress } from '@mui/material';
+import { Grid, Typography, TextField, Button } from '@mui/material';
 import * as Yup from 'yup';
-import { PasswordField } from '../core/SharedComponents/PasswordField';
-import { loginUser } from '../core/api/Authentication';
-import { openSnackbar } from '../state/actionCreators';
+import CircularLoading from '@/core/SharedComponents/CircularLoading';
+import { PasswordField } from '../../core/SharedComponents/PasswordField';
+import { loginUser } from '../../core/api/Authentication';
+import { openSnackbar } from '../../state/actionCreators';
 import { LoginValuesPayload } from '@/core/models/api/login.model';
 import { StyledBox, StyledFormBox } from '@/core/materialconfig/styles';
 
@@ -51,7 +52,6 @@ export default function LoginForm() {
             noValidate
             autoComplete="off"
             onSubmit={formik.handleSubmit}
-            sx={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'space-between' }}
         >
             <Grid container direction="column" alignItems="center" >
                 <Typography>login</Typography>
@@ -76,7 +76,7 @@ export default function LoginForm() {
 
             <StyledBox>
                 <Button variant="contained" type="submit" color='primary'>
-                    {isLoading ? <CircularProgress size={24} color='info' thickness={3.6} /> : 'login'}
+                    {isLoading ? <CircularLoading /> : 'login'}
                 </Button>
 
                 <Button variant="outlined" type="submit" color='secondary' onClick={() => navigate('/signup')}>sign up</Button>

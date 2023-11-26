@@ -1,13 +1,13 @@
-import { Box, CssBaseline } from '@mui/material'
-import { theme } from '../core/materialconfig/theme'
-import { ThemeProvider } from '@emotion/react'
+import { Typography } from "@mui/material"
+// import HdrAutoIcon from '@mui/icons-material/HdrAuto';
 
 export default function Profile() {
     return (
-        <ThemeProvider theme={theme}>
-            <Box>
-                <CssBaseline />
-            </Box>
+        <>
+            <Typography>
+                Profiles and More
+            </Typography>
+            {/* <HdrAutoIcon /> */}
 
-        </ThemeProvider>)
+        </>)
 }
