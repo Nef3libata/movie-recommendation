@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@mui/material'
 
@@ -12,7 +12,7 @@ type PasswordFieldProps = {
 export const PasswordField: React.FC<PasswordFieldProps> =
     ({ onChange, value }) => {
 
-        const [showPassword, setShowPassword] = React.useState(false);
+        const [showPassword, setShowPassword] = useState(false);
 
         const handleClickShowPassword = () => {
             setShowPassword(!showPassword);
