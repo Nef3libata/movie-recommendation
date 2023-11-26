@@ -14,8 +14,13 @@ export const registerUser = async (values: UserValuesPayload) => {
 };
 
 export const loginUser = async (values: LoginValuesPayload) => {
-  return axios.post(loginURL, {
+  const response = await axios.post(loginURL, {
     email: values.email,
     password: values.password,
   });
+
+  const accessToken = response.data.accessToken;
+  localStorage.setItem("accessToken", accessToken);
+
+  return response;
 };
